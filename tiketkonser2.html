@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKPINK WORLD TOUR | Official Ticket Booking</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome untuk Ikon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bp-pink: #ff69b4;
+            --bp-dark-pink: #d81b60;
+            --bp-black: #121212;
+            --bp-white: #ffffff;
+            --bp-gray: #f8f9fa;
+            --gradient-main: linear-gradient(135deg, #121212 0%, #2a0a18 100%);
+            --gradient-accent: linear-gradient(45deg, #ff69b4, #ff007f, #121212);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bp-black);
+            color: var(--bp-white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(18, 18, 18, 0.98);
+            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.2);
+        }
+
+        .navbar-brand {
+            font-weight: 900;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--bp-white) !important;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--bp-pink);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://picsum.photos/seed/concertbp/1920/1080.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #ddd;
+            font-weight: 300;
+        }
+
+        /* Custom Buttons */
+        .btn-bp {
+            background: var(--gradient-accent);
+            border: none;
+            color: white;
+            padding: 12px 35px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-bp::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #121212, #ff69b4);
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .btn-bp:hover::before {
+            opacity: 1;
+        }
+
+        .btn-bp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4);
+            color: white;
+        }
+
+        .btn-outline-bp {
+            background: transparent;
+            border: 2px solid var(--bp-pink);
+            color: var(--bp-pink);
+            padding: 10px 30px;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .btn-outline-bp:hover {
+            background: var(--bp-pink);
+            color: white;
+            box-shadow: 0 0 15px var(--bp-pink);
+        }
+
+        /* Countdown Timer */
+        .countdown-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            min-width: 80px;
+        }
+
+        .time-val {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--bp-pink);
+            display: block;
+        }
+
+        .time-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        /* Ticket Cards */
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+
+        .ticket-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ticket-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 105, 180, 0.05);
+            border-color: var(--bp-pink);
+            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.15);
+        }
+
+        .ticket-card.featured {
+            background: linear-gradient(180deg, rgba(255, 105, 180, 0.15) 0%, rgba(18, 18, 18, 1) 100%);
+            border: 1px solid var(--bp-pink);
+        }
+
+        .ticket-card.featured::before {
+            content: 'BEST SELLER';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--bp-pink);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+
+        .price-tag {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--bp-white);
+            margin: 1rem 0;
+        }
+
+        .price-tag span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #aaa;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            margin-bottom: 10px;
+            color: #ddd;
+        }
+
+        .features-list li i {
+            color: var(--bp-pink);
+            margin-right: 10px;
+        }
+
+        /* Seat Map Visualization */
+        .stage-container {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 30px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        .stage {
+            background: linear-gradient(90deg, #333, #555, #333);
+            height: 40px;
+            margin: 0 auto 50px auto;
+            width: 60%;
+            border-radius: 50px 50px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .seat-section {
+            display: inline-block;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .section-vip {
+            background: rgba(255, 105, 180, 0.2);
+            border: 1px dashed var(--bp-pink);
+            width: 150px;
+        }
+        
+        .section-fest {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px dashed #fff;
+            width: 200px;
+        }
+
+        /* Gallery */
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            height: 250px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Modal Customization */
+        .modal-content {
+            background-color: #1a1a1a;
+            color: white;
+            border: 1px solid var(--bp-pink);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #333;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #333;
+        }
+
+        .form-control {
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            color: white;
+        }
+
+        .form-control:focus {
+            background-color: #2a2a2a;
+            border-color: var(--bp-pink);
+            color: white;
+            box-shadow: 0 0 0 0.25rem rgba(255, 105, 180, 0.25);
+        }
+
+        /* Footer */
+        footer {
+            background: black;
+            padding: 50px 0;
+            border-top: 1px solid #222;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            background: #222;
+            color: white;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--bp-pink);
+            transform: translateY(-3px);
+        }
+
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1060;
+        }
+        
+        .toast-bp {
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 5px solid var(--bp-pink);
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .countdown-container { gap: 10px; }
+            .time-box { min-width: 60px; padding: 10px; }
+            .time-val { font-size: 1.5rem; }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">BLACKPINK <span style="font-weight:300; font-size: 0.8em; color: white; -webkit-text-fill-color: white;">WORLD TOUR</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#home">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tickets">Tiket</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#seatmap">Panggung</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Galeri</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a href="#tickets" class="btn btn-sm btn-bp">Beli Tiket</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h5 class="text-warning mb-2">OFFICIAL TICKETING PARTNER</h5>
+                    <h1 class="hero-title">BORN PINK<br>FINALE IN JAKARTA</h1>
+                    <p class="hero-subtitle">Gelora Bung Karno Main Stadium • Maret 2024</p>
+                    
+                    <div class="countdown-container">
+                        <div class="time-box">
+                            <span class="time-val" id="days">00</span>
+                            <span class="time-label">Hari</span>
+                        </div>
+                        <div class="time-box">
+                            <span class="time-val" id="hours">00</span>
+                            <span class="time-label">Jam</span>
+                        </div>
+                        <div class="time-box">
+                            <span class="time-val" id="minutes">00</span>
+                            <span class="time-label">Menit</span>
+                        </div>
+                        <div class="time-box">
+                            <span class="time-val" id="seconds">00</span>
+                            <span class="time-label">Detik</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="#tickets" class="btn btn-bp btn-lg me-3">Dapatkan Tiket</a>
+                        <a href="#seatmap" class="btn btn-outline-bp btn-lg">Lihat Peta</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tickets Section -->
+    <section id="tickets" class="py-5">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pilih Kategori Tiket</h2>
+                <p class="text-muted">Nikmati pengalaman konser terbaik dengan kategori eksklusif</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Category 3 -->
+                <div class="col-md-4">
+                    <div class="ticket-card">
+                        <h4 class="text-pink">Festival B</h4>
+                        <div class="price-tag">Rp 1.500.000</div>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check"></i> Akses Area Festival (Berdiri)</li>
+                            <li><i class="fas fa-check"></i> Belakang Soundcheck</li>
+                            <li><i class="fas fa-check"></i> Merchandise Stand</li>
+                            <li class="text-muted"><i class="fas fa-times"></i> No Early Entry</li>
+                        </ul>
+                        <button class="btn btn-outline-bp w-100" onclick="openOrderModal('Festival B', 1500000)">Pilih Tiket</button>
+                    </div>
+                </div>
+
+                <!-- Category 2 (Featured) -->
+                <div class="col-md-4">
+                    <div class="ticket-card featured">
+                        <h4 class="text-white">Festival A (VIP)</h4>
+                        <div class="price-tag">Rp 2.800.000</div>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check"></i> Akses Area Festival (Depan)</li>
+                            <li><i class="fas fa-check"></i> <strong>Early Entry</strong></li>
+                            <li><i class="fas fa-check"></i> Lanyard Eksklusif</li>
+                            <li><i class="fas fa-check"></i> Souvenir Kit</li>
+                        </ul>
+                        <button class="btn btn-bp w-100" onclick="openOrderModal('Festival A (VIP)', 2800000)">Pilih Tiket</button>
+                    </div>
+                </div>
+
+                <!-- Category 1 -->
+                <div class="col-md-4">
+                    <div class="ticket-card">
+                        <h4 class="text-pink">Cat 1 Duduk</h4>
+                        <div class="price-tag">Rp 3.500.000</div>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check"></i> Kursi Nomor Terpilih</li>
+                            <li><i class="fas fa-check"></i> Sisi Barat & Timur</li>
+                            <li><i class="fas fa-check"></i> View Terbaik Panggung</li>
+                            <li><i class="fas fa-check"></i> Lift Akses Khusus</li>
+                        </ul>
+                        <button class="btn btn-outline-bp w-100" onclick="openOrderModal('Cat 1 Duduk', 3500000)">Pilih Tiket</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seat Map Section -->
+    <section id="seatmap" class="py-5 bg-dark-subtle">
+        <div class="container">
+            <div class="section-title">
+                <h2>Layout Panggung</h2>
+                <p class="text-muted">Perkiraan tata letak kursi dan area berdiri</p>
+            </div>
+
+            <div class="stage-container">
+                <div class="d-flex justify-content-center align-items-end flex-wrap gap-2" style="min-height: 300px;">
+                    <div style="width: 100%; text-align: center; margin-bottom: 20px;">
+                        <div class="stage">STAGE UTAMA</div>
+                    </div>
+                    
+                    <!-- Festival Area -->
+                    <div class="d-flex flex-wrap justify-content-center w-100">
+                        <div class="seat-section section-vip d-flex align-items-center justify-content-center">
+                            <small class="text-white fw-bold">FEST A (VIP)</small>
+                        </div>
+                        <div class="seat-section section-vip d-flex align-items-center justify-content-center">
+                            <small class="text-white fw-bold">FEST A (VIP)</small>
+                        </div>
+                    </div>
+
+                    <!-- Extension -->
+                    <div class="d-flex flex-wrap justify-content-center w-100 mb-2">
+                        <div class="seat-section section-fest d-flex align-items-center justify-content-center">
+                            <small class="text-white fw-bold">FEST B</small>
+                        </div>
+                        <div class="seat-section section-fest d-flex align-items-center justify-content-center">
+                            <small class="text-white fw-bold">FEST B</small>
+                        </div>
+                    </div>
+
+                    <!-- Seated Areas (Simplified Visual) -->
+                    <div class="row w-100 g-2 px-5 mt-2">
+                        <div class="col-4 bg-secondary rounded p-3 text-center text-white" style="opacity: 0.7;">CAT 1<br>(Barat)</div>
+                        <div class="col-4 bg-dark rounded p-3 text-center text-white border border-secondary" style="opacity: 0.5;">CAT 2<br>(Belakang)</div>
+                        <div class="col-4 bg-secondary rounded p-3 text-center text-white" style="opacity: 0.7;">CAT 1<br>(Timur)</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-5">
+        <div class="container">
+            <div class="section-title">
+                <h2>Galeri Konser</h2>
+                <p class="text-muted">Momen terbaik dari tur dunia sebelumnya</p>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4 col-6">
+                    <div class="gallery-item"><img src="konserblackpink02.jpg" alt="Concert 1"></div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="gallery-item"><img src="konserblacpink01.jpg" alt="Concert 2"></div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="gallery-item"><img src="konserblackpink03.jpg" alt="Concert 3"></div>
+                </div>
+                <div class="col-md-6 col-6">
+                    <div class="gallery-item"><img src="konserblackpink04.jpg" alt="Concert 4"></div>
+                </div>
+                <div class="col-md-6 col-6">
+                    <div class="gallery-item"><img src="konserblackpink05.jpg" alt="Concert 5"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <h2 class="mb-4" style="background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">BLACKPINK</h2>
+            <div class="social-links mb-4">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="text-muted small">&copy; 2024 Official BLACKPINK Fanpage (Concept). All Rights Reserved.</p>
+            <p class="text-muted small">Designed with <i class="fas fa-heart text-pink"></i> for BLINKs.</p>
+        </div>
+    </footer>
+
+    <!-- Order Modal -->
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pemesanan Tiket</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="ticketForm">
+                        <div class="mb-3">
+                            <label class="form-label">Kategori Tiket</label>
+                            <input type="text" class="form-control" id="modalTicketType" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Harga per Tiket</label>
+                            <input type="text" class="form-control" id="modalTicketPrice" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Jumlah Tiket</label>
+                            <select class="form-select" id="ticketQuantity">
+                                <option value="1">1 Tiket</option>
+                                <option value="2">2 Tiket</option>
+                                <option value="3">3 Tiket</option>
+                                <option value="4">4 Tiket</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" placeholder="Masukkan nama Anda" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" placeholder="email@contoh.com" required>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <span class="fw-bold">Total Bayar:</span>
+                            <span class="fw-bold text-pink fs-5" id="totalPrice">Rp 0</span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-bp" onclick="submitOrder()">Lanjut Pembayaran</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container">
+        <div id="orderToast" class="toast align-items-center toast-bp border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    <strong>Sukses!</strong> Pesanan Anda telah dibuat. Cek email untuk e-ticket.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Countdown Timer Logic
+        // Set date to 10 days from now for demo purposes
+        const countDownDate = new Date();
+        countDownDate.setDate(countDownDate.getDate() + 10); 
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown-container").innerHTML = "SALE ENDED";
+            }
+        }, 1000);
+
+        // Modal Logic
+        let currentPrice = 0;
+        const orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
+        const orderToast = new bootstrap.Toast(document.getElementById('orderToast'));
+
+        function openOrderModal(type, price) {
+            document.getElementById('modalTicketType').value = type;
+            document.getElementById('modalTicketPrice').value = formatRupiah(price);
+            currentPrice = price;
+            updateTotal();
+            orderModal.show();
+        }
+
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+        }
+
+        function updateTotal() {
+            const qty = document.getElementById('ticketQuantity').value;
+            const total = currentPrice * qty;
+            document.getElementById('totalPrice').innerText = formatRupiah(total);
+        }
+
+        document.getElementById('ticketQuantity').addEventListener('change', updateTotal);
+
+        function submitOrder() {
+            // Simple validation simulation
+            const inputs = document.querySelectorAll('#ticketForm input[required]');
+            let valid = true;
+            inputs.forEach(input => {
+                if(!input.value) valid = false;
+            });
+
+            if(valid) {
+                orderModal.hide();
+                orderToast.show();
+                // Reset form
+                document.getElementById('ticketForm').reset();
+            } else {
+                alert("Mohon lengkapi semua data.");
+            }
+        }
+    </script>
+</body>
+</html>
